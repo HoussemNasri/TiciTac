@@ -32,8 +32,9 @@ public class BoardStateEvaluator {
         return true;
     }
 
-    public boolean checkWinner(Character character) {
-        Character playe1Symbol = character;
+    public IPlayer checkWinner() {
+        Character playe1Symbol =player1.getPlayerSymbol();
+        Character player2Symbol = player2.getPlayerSymbol();
 
         int size = symbols.length;
         Character[] flatMatrix = new Character[size * size];
@@ -54,10 +55,12 @@ public class BoardStateEvaluator {
         };
         for (Integer[] i : winningCombos) {
             if (flatMatrix[i[0]] == playe1Symbol && flatMatrix[i[1]] == playe1Symbol && flatMatrix[i[2]] == playe1Symbol) {
-                return true;
+                return player1;
             }
+            if(flatMatrix[i[0]] == playe1Symbol && flatMatrix[i[1]] == playe1Symbol && flatMatrix[i[2]] == player2Symbol)
+                return player2;
         }
-        return false;
+        return null;
     }
 
     public boolean isBoardEmpty() {
@@ -83,6 +86,6 @@ public class BoardStateEvaluator {
 
 
     public boolean checkForTie() {
-        return isBoardFull() && !checkWinner(player1.getPlayerSymbol()) && !checkWinner(player2.getPlayerSymbol());
+        return isBoardFull() && checkWinner() == null;
     }
 }
