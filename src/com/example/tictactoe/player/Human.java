@@ -1,15 +1,18 @@
 package com.example.tictactoe.player;
 
-public class Human implements IPlayer {
-    private String name =  "human";
-    private Character symbol = '*';
-    private PlayerStatistics statistics;
+import com.example.tictactoe.board.IBoard;
 
-    public Human(String name , Character symbol){
+public class Human implements IPlayer {
+    private String name = "human";
+    private Character symbol = '*';
+    private IBoard board;
+
+
+    public Human(String name, Character symbol) {
         this.name = name;
         this.symbol = symbol;
-        this.statistics = new PlayerStatistics();
     }
+
     @Override
     public String getPlayerName() {
         return this.name;
@@ -23,6 +26,17 @@ public class Human implements IPlayer {
     @Override
     public PlayerStatistics getStatistics() {
         return this.statistics;
+    }
+
+
+    @Override
+    public void move() {
+        board.readInput(this);
+    }
+
+    @Override
+    public void linkToBoard(IBoard board) {
+        this.board = board;
     }
 
 }

@@ -33,7 +33,7 @@ public class BoardStateEvaluator {
     }
 
     public IPlayer checkWinner() {
-        Character playe1Symbol =player1.getPlayerSymbol();
+        Character playe1Symbol = player1.getPlayerSymbol();
         Character player2Symbol = player2.getPlayerSymbol();
 
         int size = symbols.length;
@@ -57,10 +57,20 @@ public class BoardStateEvaluator {
             if (flatMatrix[i[0]] == playe1Symbol && flatMatrix[i[1]] == playe1Symbol && flatMatrix[i[2]] == playe1Symbol) {
                 return player1;
             }
-            if(flatMatrix[i[0]] == playe1Symbol && flatMatrix[i[1]] == playe1Symbol && flatMatrix[i[2]] == player2Symbol)
+            if (flatMatrix[i[0]] == playe1Symbol && flatMatrix[i[1]] == playe1Symbol && flatMatrix[i[2]] == player2Symbol)
                 return player2;
         }
         return null;
+    }
+
+
+    public boolean player1Win() {
+        return checkWinner().equals(player1);
+    }
+
+
+    public boolean player2Win() {
+        return checkWinner().equals(player2);
     }
 
     public boolean isBoardEmpty() {
@@ -82,6 +92,23 @@ public class BoardStateEvaluator {
                     return false;
         }
         return true;
+    }
+
+    public boolean gameFinished() {
+        return checkWinner() != null || checkForTie();
+    }
+
+    public boolean validatePlayerInput(String input) {
+
+
+        if (input.length() != 2 || !Character.isDigit(input.charAt(0)) || !Character.isDigit(input.charAt(1)))
+            return false;
+
+        return true;
+    }
+
+    public String prettierInput(String input) {
+        return input.trim().replaceAll(" ", "");
     }
 
 

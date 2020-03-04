@@ -1,5 +1,8 @@
 package com.example.tictactoe.player;
 
+import com.example.tictactoe.board.IBoard;
+import com.example.tictactoe.exceptions.IllegalPositionException;
+
 public interface IPlayer {
     PlayerStatistics statistics = new PlayerStatistics();
 
@@ -9,14 +12,21 @@ public interface IPlayer {
 
     PlayerStatistics getStatistics();
 
-    default void win(){
+    void move() throws IllegalPositionException;
+
+    void linkToBoard(IBoard board);
+
+    default void win() {
         getStatistics().playerWon();
     }
-    default void lose(){
+
+    default void lose() {
         getStatistics().playerLost();
     }
-    default void tie(){
-        getStatistics().playerTie();;
+
+    default void tie() {
+        getStatistics().playerTie();
+        ;
     }
 
 }

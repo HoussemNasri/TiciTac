@@ -5,21 +5,21 @@ public class PlayerStatistics {
     private int lost;
     private int tie;
 
-    PlayerStatistics(){
+    PlayerStatistics() {
         wins = 0;
         lost = 0;
-        tie  = 0;
+        tie = 0;
     }
 
-    public void playerWon(){
+    public void playerWon() {
         wins++;
     }
 
-    public void playerLost(){
+    public void playerLost() {
         lost++;
     }
 
-    public void playerTie(){
+    public void playerTie() {
         tie++;
     }
 

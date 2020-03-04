@@ -1,14 +1,21 @@
 package com.example.tictactoe.player;
 
-public class Computer implements IPlayer {
-    private String name =  "computer";
-    private Character symbol = '0';
-    private PlayerStatistics statistics;
+import com.example.tictactoe.board.BestMoveStrategy;
+import com.example.tictactoe.board.GameStrategy;
+import com.example.tictactoe.board.IBoard;
+import com.example.tictactoe.exceptions.IllegalPositionException;
 
-    public Computer(String name , Character symbol){
+public class Computer implements IPlayer {
+    private String name = "computer";
+    private Character symbol = '0';
+    private IBoard board;
+    private GameStrategy bestMoveStrategy;
+
+
+    public Computer(String name, Character symbol) {
         this.name = name;
         this.symbol = symbol;
-        this.statistics = new PlayerStatistics();
+        bestMoveStrategy = new BestMoveStrategy();
     }
 
     @Override
@@ -23,7 +30,20 @@ public class Computer implements IPlayer {
 
     @Override
     public PlayerStatistics getStatistics() {
-        return this.statistics;
+        return statistics;
+    }
+
+
+    @Override
+    public void move() throws IllegalPositionException {
+        System.out.println(getPlayerName() + " Turn : ");
+        int[] bestMove = bestMoveStrategy.move(board.getBoardMatrix(), this);
+        board.move(bestMove[0], bestMove[1]);
+    }
+
+    @Override
+    public void linkToBoard(IBoard board) {
+        this.board = board;
     }
 
 }
